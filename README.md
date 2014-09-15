@@ -2,11 +2,11 @@ Exim4
 =====
 
 Installs and configures Exim4 as an internet mailer. Features include:
- * SPF record checking on inbound mail
- * Antivirus support (ClamAV)
- * Anti spam support (Spamassassin)
- * Authentication via SASLauthd
- * DKIM mail signing on outbound mail (work in progress)
+* SPF record checking on inbound mail
+* Antivirus support (ClamAV)
+* Anti spam support (Spamassassin)
+* Authentication via SASLauthd
+* DKIM mail signing on outbound mail (work in progress)
 
 DKIM mail verification on inbound mail is still planned.
 
@@ -24,6 +24,7 @@ Role Variables
 
 Exim4 configuration template variables and their defaults
 
+```
 exim_primary_hostname: 'example.com'
 exim_domainlist_local_domains: '@:localhost'
 exim_domainlist_relay_to_domains: ''
@@ -52,6 +53,7 @@ exim_transport_remote_smtp_dkim_private_key: ''
 exim_transport_remote_smtp_dkim_canon: 'relaxed'
 exim_transport_remote_smtp_dkim_strict: 'false'
 exim_transport_remote_smtp_dkim_sign_headers: ''
+```
 
 Further work
 ------------
