@@ -2,6 +2,7 @@ Exim4
 =====
 
 Installs and configures Exim4 as an internet mailer. Features include:
+
 * SPF record checking on inbound mail
 * Antivirus support (ClamAV)
 * Anti spam support (Spamassassin)
@@ -17,7 +18,15 @@ install routines are changed)
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+This role doesn't install an antivirus so if you wish to use that functionality
+you will need to install one yourself.
+
+Because this role uses sasl for authentication by default it authenticates
+against the system user database. Thats fine where user=account but not if you
+intend to do virtual mail hosting (where mail accounts are separate to system
+accounts).
+In those cases the authentication part of the role may need to be changed -
+feel free to let me know if you would like to see options available in the role
 
 Role Variables
 --------------
