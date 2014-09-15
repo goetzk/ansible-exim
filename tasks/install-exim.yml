@@ -9,9 +9,8 @@
   user: append=yes createhome=no name=Debian-exim groups=sasl
   notify: restart exim4
 
-# https://help.ubuntu.com/community/EximClamAV
-# presumably in SELinux too
 - name: Allow ClamAV access to Exims mail spool
+  when: exim_av_scanner_enable
   user: append=yes createhome=no name=clamav groups='Debian-exim' 
   notify: restart clamav
 
