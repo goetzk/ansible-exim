@@ -8,14 +8,29 @@
     group=root owner=root mode=640
     src=exim-ssl-generation-configuration.tmpl
     dest=/etc/exim4/.exim-ssl-generation-configuration
+  tags:
+  - system
+  - openssl
+  - mail
+  - exim
 
 - name: Generate server side certificate for SMTP
   command: openssl req -config /etc/exim4/.exim-ssl-generation-configuration -x509 -newkey rsa:4096 -keyout {{ exim_tls_privatekey }} -out {{ exim_tls_certificate }} -days 1095 -nodes
     creates={{ exim_tls_privatekey }}
+  tags:
+  - system
+  - openssl
+  - mail
+  - exim
 
 - name: Generate CSR from Certificate for SMTP
   command: openssl req -config /etc/exim4/.exim-ssl-generation-configuration -new -key {{ exim_tls_privatekey }} -out /etc/exim4/exim.csr
     creates=/etc/exim4/exim.csr
+  tags:
+  - system
+  - openssl
+  - mail
+  - exim
 
 # Here you need to manually get the csr signed then update the .crt with the newly provided contents
 
@@ -23,10 +38,22 @@
 - name: Generate certificate for DKIM
   command: openssl genrsa -out {{ exim_transport_remote_smtp_dkim_private_key }} 2048
     creates={{ exim_transport_remote_smtp_dkim_private_key }}
+  tags:
+  - system
+  - openssl
+  - mail
+  - exim
+  - dkim
 
 - name: Generate public key for DKIM
   command: openssl rsa -in {{ exim_transport_remote_smtp_dkim_private_key }} -out /etc/exim4/dkim.pub -pubout -outform PEM
     creates=/etc/exim4/dkim.pub
+  tags:
+  - system
+  - openssl
+  - mail
+  - exim
+  - dkim
 
 - name: Restrict access to SSL related files
   file: mode=440 owner=root group=Debian-exim
@@ -37,4 +64,6 @@
     - exim.csr
     - dkim.key
     - dkim.pub
+  tags:
+  - system
 

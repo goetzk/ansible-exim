@@ -1,6 +1,11 @@
 ---
 - name: Install spamassassin
   apt: pkg=spamassassin state=present
+  tags:
+  - system
+  - development
+  - spamassassin
+  - mail
 
 # See also perl-doc Mail::SpamAssassin::Conf for other options to change. These
 # three modifications are one offs in the relevant file - if that changes
@@ -12,6 +17,11 @@
     line='lock_method flock'
     regexp='^lock_method flock'
   notify: restart spamassassin
+  tags:
+  - system
+  - development
+  - spamassassin
+  - mail
 
 # Do these need to be disabled, will they cause extra delays?
 - name: Disable SPF checking spamassassin (handled by Exim)
@@ -20,6 +30,12 @@
     line='# loadplugin Mail::SpamAssassin::Plugin::SPF'
     regexp='loadplugin Mail::SpamAssassin::Plugin::SPF'
   notify: restart spamassassin
+  tags:
+  - system
+  - development
+  - spamassassin
+  - mail
+  - spf
 
 - name: Disable DKIM checking spamassassin (handled by Exim)
   lineinfile: state=present
@@ -27,6 +43,12 @@
     line='# loadplugin Mail::SpamAssassin::Plugin::DKIM'
     regexp='loadplugin Mail::SpamAssassin::Plugin::DKIM'
   notify: restart spamassassin
+  tags:
+  - system
+  - development
+  - spamassassin
+  - mail
+  - dkim
 
 - name: Enable spamassassin
   lineinfile: state=present
@@ -34,4 +56,9 @@
     line='ENABLED=1'
     regexp='^ENABLED=.?'
   notify: restart spamassassin
+  tags:
+  - system
+  - development
+  - spamassassin
+  - mail
 

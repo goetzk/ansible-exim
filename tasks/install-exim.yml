@@ -1,18 +1,37 @@
 ---
 - name: Install exim4 heavy
   apt: state=present pkg=exim4-daemon-heavy
+  tags:
+  - system
+  - development
+  - exim
 
 - name: Install spf tools for Exims use
   apt: state=present pkg=spf-tools-perl
+  tags:
+  - system
+  - development
+  - exim
+  - spf
 
 - name: Add Exim to sasl group
   user: append=yes createhome=no name=Debian-exim groups=sasl
   notify: restart exim4
+  tags:
+  - system
+  - development
+  - exim
+  - sasl
 
 - name: Allow ClamAV access to Exims mail spool
   when: exim_av_scanner_enable
   user: append=yes createhome=no name=clamav groups='Debian-exim' 
   notify: restart clamav
+  tags:
+  - system
+  - development
+  - exim
+  - clam
 
 - name: Install exim4 configuration file
   template:
@@ -20,10 +39,19 @@
     src=exim-exim4.conf.tmpl
     dest=/etc/exim4/exim4.conf
   notify: restart exim4
+  tags:
+  - system
+  - development
+  - exim
 
 - name: Install DKIM senders domain lookup file
   template: group=Debian-exim owner=root
     src=exim-dkim-senders.list.tmpl
     dest=/etc/exim4/dkim-senders.list
   notify: restart exim4
+  tags:
+  - system
+  - development
+  - exim
+  - dkim
 
