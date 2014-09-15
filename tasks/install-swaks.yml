@@ -1,8 +1,0 @@
----
-# SMTP debugging tool mentioned on debians exim page
-- name: Install swaks
-  apt: pkg={{ item }} state=present
-  with_items:
-    - swaks
-    - libnet-ssleay-perl
-

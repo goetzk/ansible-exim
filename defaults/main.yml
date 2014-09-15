@@ -3,9 +3,9 @@
 exim_primary_hostname: example.com
 exim_domainlist_local_domains: '@:localhost'
 exim_domainlist_relay_to_domains: ''
-exim_av_scanner_enable: true
+exim_av_scanner_enable: false
 exim_av_scanner_path: clamd:/var/run/clamav/clamd.ctl
-exim_spamd_enable: true
+exim_spamd_enable: false
 exim_tls_enable: true
 exim_tls_advertise_hosts: '*'
 exim_tls_certificate: /etc/exim4/exim.crt
