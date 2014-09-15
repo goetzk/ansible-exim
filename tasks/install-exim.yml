@@ -1,0 +1,30 @@
+---
+- name: Install exim4 heavy
+  apt: state=present pkg=exim4-daemon-heavy
+
+- name: Install spf tools for Exims use
+  apt: state=present pkg=spf-tools-perl
+
+- name: Add Exim to sasl group
+  user: append=yes createhome=no name=Debian-exim groups=sasl
+  notify: restart exim4
+
+# https://help.ubuntu.com/community/EximClamAV
+# presumably in SELinux too
+- name: Allow ClamAV access to Exims mail spool
+  user: append=yes createhome=no name=clamav groups='Debian-exim' 
+  notify: restart clamav
+
+- name: Install exim4 configuration file
+  template:
+    group=Debian-exim owner=root
+    src=exim-exim4.conf.tmpl
+    dest=/etc/exim4/exim4.conf
+  notify: restart exim4
+
+- name: Install DKIM senders domain lookup file
+  template: group=Debian-exim owner=root
+    src=exim-dkim-senders.list.tmpl
+    dest=/etc/exim4/dkim-senders.list
+  notify: restart exim4
+

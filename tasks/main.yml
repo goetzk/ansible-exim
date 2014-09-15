@@ -1,0 +1,7 @@
+---
+- include: install-spamassassin.yml
+- include: install-saslauthd.yml
+- include: install-exim.yml
+- include: configure-ssl-certificates.yml
+- include: install-swaks.yml
+

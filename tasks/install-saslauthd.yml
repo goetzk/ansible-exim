@@ -1,0 +1,11 @@
+---
+- name: Install SASL2 authentication daemon
+  apt: pkg=sasl2-bin state=present
+
+- name: Enable saslauthd
+  lineinfile: state=present
+    dest=/etc/default/saslauthd
+    line='START=yes'
+    regexp='^START=.?'
+  notify: restart saslauthd
+

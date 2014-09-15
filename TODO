@@ -1,0 +1,14 @@
+
+# TODO: Verify these whitelists work correctly (atm none of them have spf)
+# - for known spam (shortcircuit BAYES_99) as I have lots of spam to train with
+# - using SPF is apparently possible http://wiki.apache.org/spamassassin/ShortcircuitingRuleset
+#     - { regexp: '^whitelist_auth.*', newline: 'whitelist_auth *@kgoetz.id.au' }
+#     - { regexp: '^whitelist_auth.*', newline: 'whitelist_auth *@maincontent.net' }
+#     - { regexp: '^whitelist_auth.*', newline: 'whitelist_auth *@medeopolis.net' }
+#     - { regexp: '^whitelist_auth.*', newline: 'whitelist_auth *@medeopolis.com' }
+#     - { regexp: '^whitelist_auth.*', newline: 'whitelist_auth *@aj.id.au' }
+#     - { regexp: '^whitelist_auth.*', newline: 'whitelist_auth *@utas.edu.au' }
+#    - { regexp: '', newline: '' }
+#    - { regexp: '', newline: '' }
+  notify: restart spamassassin
+

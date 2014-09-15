@@ -1,0 +1,28 @@
+---
+# Only those required are here, defaults haven't been reproduced
+exim_primary_hostname: example.com
+exim_domainlist_local_domains: '@:localhost'
+exim_domainlist_relay_to_domains: ''
+exim_av_scanner_enable: true
+exim_av_scanner_path: clamd:/var/run/clamav/clamd.ctl
+exim_spamd_enable: true
+exim_tls_enable: true
+exim_tls_advertise_hosts: '*'
+exim_tls_certificate: /etc/exim4/exim.crt
+exim_tls_privatekey: /etc/exim4/exim.key
+exim_acl_check_rcpt_dnsbls_enable: true
+exim_acl_check_rcpt_host_lookup_enable: true
+exim_acl_check_rcpt_spf_enable: true
+exim_acl_check_data_malware_enable: true
+exim_acl_check_data_spam_enable: true
+exim_acl_check_dkim_enable: false
+exim_routers_localuser_use_maildir: true
+# Has to be false until DNS records are live
+exim_transport_remote_smtp_dkim_enable: false
+exim_dkim_senders_list: []
+exim_transport_remote_smtp_dkim_selector: example.com
+exim_transport_remote_smtp_dkim_private_key: /etc/exim4/dkim.key
+
+# Spamassassin variables
+spamassassin_lock_method_flock_enable: true
+

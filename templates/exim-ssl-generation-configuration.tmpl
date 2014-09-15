@@ -1,0 +1,21 @@
+# https://www.openssl.org/docs/apps/req.html
+# "Sample configuration containing all field values"
+[ req ]
+default_bits		= 4096
+default_keyfile		= {{ exim_tls_privatekey }}
+distinguished_name	= req_distinguished_name
+attributes			= req_attributes
+prompt				= no
+output_password		= veexieshiNgae9e
+
+[ req_distinguished_name ]
+C					= AU
+ST					= Tasmania
+L					= Glenorchy
+# O					= Medeopolis Technologies
+# OU				= Personal servers
+CN					= {{ exim_primary_hostname }}
+
+[ req_attributes ]
+challengePassword	= quatoDi9chaTaTi
+
