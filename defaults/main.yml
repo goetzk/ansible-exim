@@ -26,3 +26,6 @@ exim_transport_remote_smtp_dkim_private_key: /etc/exim4/dkim.key
 # Spamassassin variables
 spamassassin_lock_method_flock_enable: true
 
+# Should we install the fail2ban filter for exim+saslauthd
+exim_fail2ban_enable: false
+

@@ -1,13 +1,14 @@
 Exim4
 =====
 
-Installs and configures Exim4 as an internet mailer. Features include:
+Installs and configures Exim4 as an internet mailer. Role features include:
 
 * SPF record checking on inbound mail
 * Antivirus support (ClamAV)
 * Anti spam support (Spamassassin)
 * Authentication via SASLauthd
 * DKIM mail signing on outbound mail (work in progress)
+* Fail2ban integration for restricting automated attacks on port 25
 
 DKIM mail verification on inbound mail is still planned.
 
@@ -63,6 +64,9 @@ exim_transport_remote_smtp_dkim_canon: 'relaxed'
 exim_transport_remote_smtp_dkim_strict: 'false'
 exim_transport_remote_smtp_dkim_sign_headers: ''
 ```
+
+# Should we install the fail2ban filter for exim+saslauthd
+exim_fail2ban_enable: false
 
 Further work
 ------------
