@@ -17,6 +17,7 @@
 - name: Generate server side certificate for SMTP
   command: openssl req -config /etc/exim4/.exim-ssl-generation-configuration -x509 -newkey rsa:4096 -keyout {{ exim_tls_privatekey }} -out {{ exim_tls_certificate }} -days 1095 -nodes
     creates={{ exim_tls_privatekey }}
+  register: eximkeymade
   tags:
   - system
   - openssl
@@ -26,6 +27,8 @@
 - name: Generate CSR from Certificate for SMTP
   command: openssl req -config /etc/exim4/.exim-ssl-generation-configuration -new -key {{ exim_tls_privatekey }} -out /etc/exim4/exim.csr
     creates=/etc/exim4/exim.csr
+  register: eximcsrmade
+  when: eximkeymade.changed
   tags:
   - system
   - openssl
@@ -38,6 +41,7 @@
 - name: Generate certificate for DKIM
   command: openssl genrsa -out {{ exim_transport_remote_smtp_dkim_private_key }} 2048
     creates={{ exim_transport_remote_smtp_dkim_private_key }}
+  when: eximcsrmade.changed
   tags:
   - system
   - openssl
