@@ -6,16 +6,14 @@ default_keyfile		= {{ exim_tls_privatekey }}
 distinguished_name	= req_distinguished_name
 attributes			= req_attributes
 prompt				= no
-output_password		= veexieshiNgae9e
+output_password		= {{ exim_ssl_output_passsword }}
 
 [ req_distinguished_name ]
-C					= AU
-ST					= Tasmania
-L					= Glenorchy
-# O					= Medeopolis Technologies
-# OU				= Personal servers
+C					= {{ exim_ssl_country }}
+ST					= {{ exim_ssl_state }}
+L					= {{ exim_ssl_locality }}
 CN					= {{ exim_primary_hostname }}
 
 [ req_attributes ]
-challengePassword	= quatoDi9chaTaTi
+challengePassword	= {{ exim_ssl_challenge_password }}
 

@@ -1,5 +1,13 @@
 ---
-# Only those required are here, defaults haven't been reproduced
+# Exim SSL configuration (if you enable exim_tls_enable)
+exim_ssl_country: AU
+exim_ssl_state: Tasmania
+exim_ssl_locality: Glenorchy
+exim_ssl_output_passsword: ''
+exim_ssl_challenge_password: ''
+
+
+# Exim configuration
 exim_primary_hostname: example.com
 exim_domainlist_local_domains: '@:localhost'
 exim_domainlist_relay_to_domains: ''

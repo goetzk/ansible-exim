@@ -35,6 +35,12 @@ Role Variables
 Exim4 configuration template variables and their defaults
 
 ```
+exim_ssl_country: AU
+exim_ssl_state: Tasmania
+exim_ssl_locality: Glenorchy
+exim_ssl_common_name: ''
+exim_ssl_challenge_password: ''
+exim_ssl_output_passsword: ''
 exim_primary_hostname: 'example.com'
 exim_domainlist_local_domains: '@:localhost'
 exim_domainlist_relay_to_domains: ''
