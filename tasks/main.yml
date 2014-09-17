@@ -4,7 +4,7 @@
 
 - include: install-saslauthd.yml
 - include: install-exim.yml
-- include: configure-ssl-certificates.yml
+- include: configure-dkim-certificates.yml
 
 - include: configure-fail2ban.yml
   when: exim_fail2ban_enable

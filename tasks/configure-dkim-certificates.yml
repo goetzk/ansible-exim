@@ -8,7 +8,6 @@
 - name: Generate certificate for DKIM
   command: openssl genrsa -out {{ exim_transport_remote_smtp_dkim_private_key }} 2048
     creates={{ exim_transport_remote_smtp_dkim_private_key }}
-  when: eximcsrmade.changed
   tags:
   - system
   - openssl
