@@ -7,10 +7,12 @@ Installs and configures Exim4 as an internet mailer. Role features include:
 * Antivirus support (ClamAV)
 * Anti spam support (Spamassassin)
 * Authentication via SASLauthd
-* DKIM mail signing on outbound mail (work in progress)
-* Fail2ban integration for restricting automated attacks on port 25
+* Fail2ban filter for restricting automated attacks on port 25
+* OpenSSL key generation (if needed)
 
-DKIM mail verification on inbound mail is still planned.
+DKIM mail verification on inbound mail is still planned
+and DKIM mail signing on outbound mail is a work in
+progress.
 
 This has only been tested on Debian Wheezy but in theory will work on any
 Debian based system with Exim4 (and possibly other platforms if the package
@@ -35,12 +37,8 @@ Role Variables
 Exim4 configuration template variables and their defaults
 
 ```
-exim_ssl_country: AU
-exim_ssl_state: Tasmania
-exim_ssl_locality: Glenorchy
-exim_ssl_common_name: ''
-exim_ssl_challenge_password: ''
-exim_ssl_output_passsword: ''
+openssl_certs_path: /etc/ssl/
+openssl_keys_path: /etc/ssl/
 exim_primary_hostname: 'example.com'
 exim_domainlist_local_domains: '@:localhost'
 exim_domainlist_relay_to_domains: ''
@@ -51,8 +49,6 @@ exim_spamd_enable: false
 exim_spamd_address: '127.0.0.1 783'
 exim_tls_enable: true
 exim_tls_advertise_hosts: ''
-exim_tls_certificate: '/etc/ssl/exim.crt'
-exim_tls_privatekey: '/etc/ssl/exim.pem'
 exim_daemon_smtp_ports: '25 : 465 : 587'
 exim_tls_on_connect_ports: '465'
 exim_check_rfc2047_length_enable: false
@@ -78,19 +74,21 @@ Further work
 ------------
 * Finish DKIM support
 * Split clamav/spamassassin/sasl install and configuration to their own roles
-* Split out OpenSSL component
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+franklinkim.openssl is used by this role. This role overrides
+openssl_certs_path and openssl_keys_path in its defaults but leaves the
+specifics of handling the key alone. Please refer to the openssl role README to
+seee its other options.
 
 Example Playbook
 ----------------
 
-For this example set your variables in group_vars/servers.
-
     - hosts: servers
+      vars:
+         - exim_primary_hostname: smtp.example.com
       roles:
          - goetzk.exim
 

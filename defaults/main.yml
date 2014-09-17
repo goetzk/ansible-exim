@@ -1,12 +1,4 @@
 ---
-# Exim SSL configuration (if you enable exim_tls_enable)
-exim_ssl_country: AU
-exim_ssl_state: Tasmania
-exim_ssl_locality: Glenorchy
-exim_ssl_output_passsword: ''
-exim_ssl_challenge_password: ''
-
-
 # Exim configuration
 exim_primary_hostname: example.com
 exim_domainlist_local_domains: '@:localhost'
@@ -16,8 +8,6 @@ exim_av_scanner_path: clamd:/var/run/clamav/clamd.ctl
 exim_spamd_enable: false
 exim_tls_enable: true
 exim_tls_advertise_hosts: '*'
-exim_tls_certificate: /etc/exim4/exim.crt
-exim_tls_privatekey: /etc/exim4/exim.key
 exim_acl_check_rcpt_dnsbls_enable: true
 exim_acl_check_rcpt_host_lookup_enable: true
 exim_acl_check_rcpt_spf_enable: true

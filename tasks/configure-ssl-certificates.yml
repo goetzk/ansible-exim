@@ -3,39 +3,6 @@
 # produces 1024bit keys which no CA today will accept. The following
 # configuration stanzas do the same thing but without prompting and using
 # decent length keys.
-- name: Install configuration file for generating SSL cert/key pair
-  template:
-    group=root owner=root mode=640
-    src=exim-ssl-generation-configuration.tmpl
-    dest=/etc/exim4/.exim-ssl-generation-configuration
-  tags:
-  - system
-  - openssl
-  - mail
-  - exim
-
-- name: Generate server side certificate for SMTP
-  command: openssl req -config /etc/exim4/.exim-ssl-generation-configuration -x509 -newkey rsa:4096 -keyout {{ exim_tls_privatekey }} -out {{ exim_tls_certificate }} -days 1095 -nodes
-    creates={{ exim_tls_privatekey }}
-  register: eximkeymade
-  tags:
-  - system
-  - openssl
-  - mail
-  - exim
-
-- name: Generate CSR from Certificate for SMTP
-  command: openssl req -config /etc/exim4/.exim-ssl-generation-configuration -new -key {{ exim_tls_privatekey }} -out /etc/exim4/exim.csr
-    creates=/etc/exim4/exim.csr
-  register: eximcsrmade
-  when: eximkeymade.changed
-  tags:
-  - system
-  - openssl
-  - mail
-  - exim
-
-# Here you need to manually get the csr signed then update the .crt with the newly provided contents
 
 # https://my.spamexperts.com/kb/33/generate-dkim-certificate.html
 - name: Generate certificate for DKIM
@@ -59,13 +26,10 @@
   - exim
   - dkim
 
-- name: Restrict access to SSL related files
+- name: Restrict access to DKIM SSL related files
   file: mode=440 owner=root group=Debian-exim
     path=/etc/exim4/{{ item }}
   with_items:
-    - exim.key
-    - exim.crt
-    - exim.csr
     - dkim.key
     - dkim.pub
   tags:
