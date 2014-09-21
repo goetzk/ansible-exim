@@ -176,8 +176,8 @@ tls_advertise_hosts  = {{ exim_tls_advertise_hosts | default('') }}
 # tls_certificate = /etc/ssl/exim.crt
 # tls_privatekey = /etc/ssl/exim.pem
 {% if 'exim_tls_enable' %}
-tls_certificate  = {{ openssl_certs_path }}/{{ exim_primary_hostname }}
-tls_privatekey   = {{ openssl_keys_path }}/{{ exim_primary_hostname }}
+tls_certificate  = {{ openssl_certs_path }}/{{ exim_primary_hostname }}.crt
+tls_privatekey   = {{ openssl_keys_path }}/{{ exim_primary_hostname }}.key
 {% endif %}
 
 # In order to support roaming users who wish to send email from anywhere,
