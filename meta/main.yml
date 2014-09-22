@@ -100,4 +100,5 @@ galaxy_info:
   - system
 dependencies:
   - role: franklinkim.openssl
+  - role: goetzk.spamassassin
   

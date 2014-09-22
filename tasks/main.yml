@@ -1,7 +1,4 @@
 ---
-- include: install-spamassassin.yml
-  when: exim_spamd_enable
-
 - include: install-saslauthd.yml
 - include: install-exim.yml
 - include: configure-dkim-certificates.yml

@@ -83,6 +83,10 @@ openssl_certs_path and openssl_keys_path in its defaults but leaves the
 specifics of handling the key alone. Please refer to the openssl role README to
 seee its other options.
 
+goetzk.spamassassin is used to handle the installation and configuration of
+spamassassin. Integration between the roles should improve once the split
+between them is complete.
+
 Example Playbook
 ----------------
 
