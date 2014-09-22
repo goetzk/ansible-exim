@@ -15,8 +15,8 @@ and DKIM mail signing on outbound mail is a work in
 progress.
 
 This has only been tested on Debian Wheezy but in theory will work on any
-Debian based system with Exim4 (and possibly other platforms if the package
-install routines are changed)
+Debian based system. Work is ongoing to ensure RedHat family of systems are
+supported correctly by the role as well.
 
 Requirements
 ------------
