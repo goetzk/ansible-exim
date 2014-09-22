@@ -6,8 +6,8 @@
 
 # https://my.spamexperts.com/kb/33/generate-dkim-certificate.html
 - name: Generate certificate for DKIM
-  command: openssl genrsa -out {{ exim_transport_remote_smtp_dkim_private_key }} 2048
-    creates={{ exim_transport_remote_smtp_dkim_private_key }}
+  command: openssl genrsa -out {{ exim_config_directory }}/dkim.key 2048
+    creates={{ exim_config_directory }}/dkim.key
   tags:
   - system
   - openssl
@@ -16,8 +16,8 @@
   - dkim
 
 - name: Generate public key for DKIM
-  command: openssl rsa -in {{ exim_transport_remote_smtp_dkim_private_key }} -out /etc/exim4/dkim.pub -pubout -outform PEM
-    creates=/etc/exim4/dkim.pub
+  command: openssl rsa -in {{ exim_config_directory }}/dkim.key -out {{ exim_config_directory }}/dkim.pub -pubout -outform PEM
+    creates={{ exim_config_directory }}/dkim.pub
   tags:
   - system
   - openssl
@@ -26,8 +26,8 @@
   - dkim
 
 - name: Restrict access to DKIM SSL related files
-  file: mode=440 owner=root group=Debian-exim
-    path=/etc/exim4/{{ item }}
+  file: mode=440 owner=root group={{ exim_group }}
+    path={{ exim_config_directory }}/{{ item }}
   with_items:
     - dkim.key
     - dkim.pub

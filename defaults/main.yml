@@ -1,10 +1,8 @@
 ---
 # Exim configuration
 exim_primary_hostname: example.com
-exim_domainlist_local_domains: '@:localhost'
 exim_domainlist_relay_to_domains: ''
 exim_av_scanner_enable: false
-exim_av_scanner_path: clamd:/var/run/clamav/clamd.ctl
 exim_spamd_enable: false
 exim_tls_enable: true
 exim_tls_advertise_hosts: '*'
@@ -19,10 +17,6 @@ exim_routers_localuser_use_maildir: true
 exim_transport_remote_smtp_dkim_enable: false
 exim_dkim_senders_list: []
 exim_transport_remote_smtp_dkim_selector: example.com
-exim_transport_remote_smtp_dkim_private_key: /etc/exim4/dkim.key
-
-# Spamassassin variables
-spamassassin_lock_method_flock_enable: true
 
 # Should we install the fail2ban filter for exim+saslauthd
 exim_fail2ban_enable: false

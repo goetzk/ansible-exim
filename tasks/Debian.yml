@@ -14,6 +14,7 @@
   - exim
   - spf
 
+# Is this shared with redhat?
 - name: Add Exim to sasl group
   user: append=yes createhome=no name=Debian-exim groups=sasl
   notify: restart exim4
@@ -32,26 +33,4 @@
   - development
   - exim
   - clam
-
-- name: Install exim4 configuration file
-  template:
-    group=Debian-exim owner=root
-    src=exim-exim4.conf.tmpl
-    dest=/etc/exim4/exim4.conf
-  notify: restart exim4
-  tags:
-  - system
-  - development
-  - exim
-
-- name: Install DKIM senders domain lookup file
-  template: group=Debian-exim owner=root
-    src=exim-dkim-senders.list.tmpl
-    dest=/etc/exim4/dkim-senders.list
-  notify: restart exim4
-  tags:
-  - system
-  - development
-  - exim
-  - dkim
 
