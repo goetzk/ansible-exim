@@ -59,8 +59,11 @@
 # uname() function is called to obtain the name. In many cases this does
 # the right thing and you need not set anything explicitly.
 
+{% if exim_primary_hostname == '' %}
 # primary_hostname =
-primary_hostname = {{ exim_primary_hostname | default('') }}
+{% else %}
+primary_hostname = {{ exim_primary_hostname }}
+{% endif %}
 
 
 # The next three settings create two lists of domains and one list of hosts.
@@ -68,7 +71,7 @@ primary_hostname = {{ exim_primary_hostname | default('') }}
 # +local_domains, +relay_to_domains, and +relay_from_hosts, respectively. They
 # are all colon-separated lists:
 
-domainlist local_domains = {{ exim_domainlist_local_domains | default('@') }}
+domainlist local_domains = {{ exim_domainlist_local_domains }}
 domainlist relay_to_domains = {{ exim_domainlist_relay_to_domains | default('') }}
 hostlist   relay_from_hosts = {{ exim_hostlist_relay_from_hosts | default('127.0.0.1') }}
 
@@ -132,9 +135,10 @@ acl_smtp_data = acl_check_data
 # of what to set for other virus scanners. The second modification is in the
 # acl_check_data access control list (see below).
 
-# av_scanner = clamd:/tmp/clamd
 {% if 'exim_av_scanner_enable' %}
 av_scanner = {{ exim_av_scanner_path |default('clamd:/var/run/clamav/clamd.ctl') }}
+{% else %}
+# av_scanner = clamd:/tmp/clamd
 {% endif %}
 
 # For spam scanning, there is a similar option that defines the interface to
@@ -142,9 +146,10 @@ av_scanner = {{ exim_av_scanner_path |default('clamd:/var/run/clamav/clamd.ctl')
 # is shown in this commented example. As for virus scanning, you must also
 # modify the acl_check_data access control list to enable spam scanning.
 
-# spamd_address = 127.0.0.1 783
 {% if 'exim_spamd_enable' %}
 spamd_address = {{ exim_spamd_address | default('127.0.0.1 783') }}
+{% else %}
+# spamd_address = 127.0.0.1 783
 {% endif %}
 
 # If Exim is compiled with support for TLS, you may want to enable the
@@ -162,9 +167,10 @@ spamd_address = {{ exim_spamd_address | default('127.0.0.1 783') }}
 log_selector = +tls_cipher +tls_peerdn
 {% endif %}
 
-# tls_advertise_hosts = *
 {% if 'exim_tls_enable' %}
-tls_advertise_hosts  = {{ exim_tls_advertise_hosts | default('') }}
+tls_advertise_hosts  = {{ exim_tls_advertise_hosts | default('*') }}
+{% else %}
+# tls_advertise_hosts = *
 {% endif %}
 
 # Specify the location of the Exim server's TLS certificate and private key.
@@ -173,11 +179,12 @@ tls_advertise_hosts  = {{ exim_tls_advertise_hosts | default('') }}
 # need the first setting, or in separate files, in which case you need both
 # options.
 
-# tls_certificate = /etc/ssl/exim.crt
-# tls_privatekey = /etc/ssl/exim.pem
 {% if 'exim_tls_enable' %}
 tls_certificate  = {{ openssl_certs_path }}/{{ exim_primary_hostname }}.crt
 tls_privatekey   = {{ openssl_keys_path }}/{{ exim_primary_hostname }}.key
+{% else %}
+# tls_certificate = /etc/ssl/exim.crt
+# tls_privatekey = /etc/ssl/exim.pem
 {% endif %}
 
 # In order to support roaming users who wish to send email from anywhere,
@@ -189,11 +196,11 @@ tls_privatekey   = {{ openssl_keys_path }}/{{ exim_primary_hostname }}.key
 # them you should also allow TLS-on-connect on the traditional but
 # non-standard port 465.
 
-# daemon_smtp_ports = 25 : 465 : 587
-# tls_on_connect_ports = 465
 daemon_smtp_ports   = {{ exim_daemon_smtp_ports | default('25 : 465 : 587') }}
 {% if 'exim_tls_enable' %}
 tls_on_connect_ports   = {{ exim_tls_on_connect_ports | default('465') }}
+{% else %}
+# tls_on_connect_ports = 465
 {% endif %}
 
 
