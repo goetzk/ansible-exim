@@ -1,7 +1,7 @@
 ---
 - name: Install fail2ban filter
   template: owner=root group=root
-    src=exim-sasl-fail2ban.tmpl
+    src=sasl-fail2ban.tmpl
     dest=/etc/fail2ban/filter.d/exim-sasl.conf
   tags:
   - system

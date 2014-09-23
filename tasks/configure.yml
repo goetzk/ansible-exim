@@ -2,7 +2,7 @@
 - name: Install exim4 configuration file
   template:
     group={{ exim_group }} owner=root
-    src=exim-exim4.conf.tmpl
+    src=exim4.conf.tmpl
     dest={{ exim_config_directory }}/{{ exim_config_filename }}
   notify: restart exim4
   tags:
@@ -12,7 +12,7 @@
 
 - name: Install DKIM senders domain lookup file
   template: owner=root group={{ exim_group }} mode=644
-    src=exim-dkim-senders.list.tmpl
+    src=dkim-senders.list.tmpl
     dest={{ exim_config_directory }}/dkim-senders.list
   notify: restart exim4
   tags:
