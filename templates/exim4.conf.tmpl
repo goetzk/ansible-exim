@@ -535,6 +535,7 @@ acl_check_rcpt:
 {% endraw %}
 {% endif %}
 
+{% if 'exim_acl_check_rcpt_spf_enable' %}
 # This would be done by an Exim ACL but debian has had it disabled for 10+ years.
 # I'm lifting the SPF checking directly from Debians exim4.conf.template as
 # suggested in the following link and putting it here as a result.
@@ -548,7 +549,6 @@ acl_check_rcpt:
   # install "spf-tools-perl" which provides the spfquery command.
   # Missing spf-tools-perl will trigger the "Unexpected error in
   # SPF check" warning.
-{% if 'exim_acl_check_rcpt_spf_enable' %}
   deny
     message = [SPF] $sender_host_address is not allowed to send mail from \
               ${if def:sender_address_domain {$sender_address_domain}{$sender_helo_name}}.  \
@@ -585,8 +585,8 @@ acl_check_rcpt:
   warn
     log_message = Unexpected error in SPF check.
     condition = ${if >{$runrc}{6}{yes}{no}}
-{% endif %}
 # End section lifted from Debian
+{% endif %}
 
   # At this point, the address has passed all the checks that have been
   # configured, so we accept it unconditionally.
