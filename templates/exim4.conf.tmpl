@@ -362,6 +362,29 @@ check_rfc2047_length   = true
 
 begin acl
 
+{% if 'exim_acl_check_rcpt_spf_enable' %}
+# This acl is needed by the code added for exim_acl_check_rcpt_spf_enable so
+# its been copied in from the template too.
+
+# It checks for /etc/exim4/host_local_deny_exceptions and
+# /etc/exim4/sender_local_deny_exceptions.
+# It is meant to be used from some other acl entry.
+#
+# See exim4-config_files(5) for details.
+# If the files do not exist, the white list never matches, which is 
+# the desired behaviour.
+
+acl_local_deny_exceptions:
+  accept
+    hosts = ${if exists{/etc/exim4/host_local_deny_exceptions}\
+                 {/etc/exim4/host_local_deny_exceptions}\
+                 {}}
+  accept
+    senders = ${if exists{/etc/exim4/sender_local_deny_exceptions}\
+                   {/etc/exim4/sender_local_deny_exceptions}\
+                   {}}
+{% endif %}
+
 
 # Support for DKIM - I haven't figured this out properly yet. I don't
 # understand how it scales
