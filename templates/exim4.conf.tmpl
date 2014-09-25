@@ -530,7 +530,7 @@ acl_check_rcpt:
     message = X-Host-Lookup-Failed: Reverse DNS lookup failed for $sender_host_address \
         (${if eq{$host_lookup_failed}{1}{failed}{deferred}})
     log_message = Reverse DNS lookup failed for $sender_host_address
-    condition = ${if and'{{def:sender_host_address}{!def:sender_host_name}}'\
+    condition = ${if and{{def:sender_host_address}{!def:sender_host_name}}\
         {yes}{no}}
 {% endraw %}
 {% endif %}
