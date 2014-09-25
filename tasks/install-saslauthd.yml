@@ -7,7 +7,7 @@
   - development
   - sasl
 
-- name: Enable saslauthd
+- name: Enable saslauthd for Debian systems
   when: ansible_os_family == 'Debian'
   lineinfile: state=present
     dest=/etc/default/saslauthd
@@ -19,7 +19,7 @@
   - development
   - sasl
 
-- name: Install Cyrus SASL
+- name: Install Cyrus SASL for RedHat systems
   when: ansible_os_family == 'RedHat'
   yum: name=cyrus-sasl state=present
 
