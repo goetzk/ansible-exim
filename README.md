@@ -10,9 +10,8 @@ Installs and configures Exim4 as an internet mailer. Role features include:
 * Fail2ban filter for restricting automated attacks on port 25
 * OpenSSL key generation (if needed)
 
-DKIM mail verification on inbound mail is still planned
-and DKIM mail signing on outbound mail is a work in
-progress.
+DKIM mail verification on inbound mail is still planned and DKIM mail signing
+on outbound mail is a work in progress.
 
 This has only been tested on Debian Wheezy but in theory will work on any
 Debian based system. Work is ongoing to ensure RedHat family of systems are
